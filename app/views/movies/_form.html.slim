@@ -1,0 +1,10 @@
+= simple_form_for movie_form, url: path, method: movie_form.persisted? ? :patch : :post do |f|
+  .form-group
+    = f.input :title, class: "form-control"
+  .form-group
+    = f.input :url, class: "form-control", input_html: { readonly: true }
+  .form-group
+    = f.input :file, as: :file, class: "form-control"
+  .form-group
+    = f.submit "Submit", class: "btn btn-danger mt-2 float-right"
+

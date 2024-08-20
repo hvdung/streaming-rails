@@ -30,6 +30,8 @@ services:
       - "~/.ssh/:/root/tmp_ssh/"
       - gem_cache:/usr/local/bundle:cached
     command: bash -c "cp -r /root/tmp_ssh/* /root/.ssh/ && bash"
+    depends_on:
+      - db
 volumes:
   gem_cache:
   db_data:
