@@ -32,6 +32,17 @@ services:
     command: bash -c "cp -r /root/tmp_ssh/* /root/.ssh/ && bash"
     depends_on:
       - db
+      - redis
+  sidekiq:
+    platform: linux/x86_64
+    build: .
+    volumes:
+      - .:/video_streaming
+    depends_on:
+      - db
+      - redis
+  redis:
+    image: redis:6.2
 volumes:
   gem_cache:
   db_data:
