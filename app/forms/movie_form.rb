@@ -3,7 +3,7 @@ class MovieForm
 
   attr_accessor :title, :url, :file
 
-  validates :title, :file, presence: true
+  validates :title, presence: true
 
   def initialize(params = nil, movie = nil)
     @movie = movie || Movie.new
@@ -19,8 +19,8 @@ class MovieForm
   def save
     return false unless valid?
 
-    s3_file = UploadS3Service.new(file.path, file.original_filename).perform if File.exist?(file)
-    @movie.update! title: title, url: s3_file[0]
+    public_url, filename = UploadS3Service.new(file.path, file.original_filename).perform if file && File.exist?(file)
+    @movie.update! title: title, url: public_url
   end
 
   # Useful for checking if the record is persisted (i.e., edit vs new)
